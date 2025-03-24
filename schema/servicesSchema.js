@@ -267,14 +267,9 @@ const updateServices = {
       description: "Update bem sucedido",
       type: "object",
       properties: {
-        service: {
-          type: "object",
-          properties: {
-            id: { type: "integer", example: 1 },
-            name: { type: "string", example: "Serviço 1" },
-            description: { type: "string", example: "Descrição do serviço 1" },
-            url: { type: "string", example: "/admin" },
-          },
+        message: {
+          type: "string",
+          example: "Serviço atualizado com sucesso",
         },
       },
     },

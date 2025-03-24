@@ -29,7 +29,7 @@ const getOneService = async (request, reply) => {
 };
 
 const createService = async (request, reply) => {
-  console.log(request.body)
+  console.log(request.body);
   try {
     const service = await create(request.body.service);
 
@@ -43,7 +43,14 @@ const updateService = async (request, reply) => {
   try {
     const id = request.params.id;
     const service = await update(id, request.body.service);
-    return reply.status(201).send({ service });
+    if (service > 0) {
+      return reply.status(201).send("Service updated successfully");
+    } else {
+      error = new Error();
+      error.status = 404;
+      error.message = "Service not updated";
+      throw error;
+    }
   } catch (error) {
     throw error;
   }
