@@ -1,23 +1,6 @@
-const fastify = require("fastify");
-const fastifyCors = require("@fastify/cors");
-const fastifySwagger = require("@fastify/swagger");
-const fastifySwaggerUi = require("@fastify/swagger-ui");
-const serviceRouter = require("./routes/serviceRouter");
-const {swaggerConfig, swaggerUiConfig} = require('./config/swaggerConfig');
-const { corsConfig } = require("./config/corsConfig");
-
-
-const port = process.env.APPLICATION_PORT || 8003;
-const app = fastify();
-
-app.register(fastifyCors, corsConfig);
-
-app.register(fastifySwagger, swaggerConfig(port));
-app.register(fastifySwaggerUi, swaggerUiConfig);
-
-app.setErrorHandler((error, request, reply) => {
+const middlewareError = (error, request, reply) => {
+  console.log(error.status)
   const statusCode = error.status || 500;
-  console.log(error)
   let messageError =
     error.response?.data.message || error.message || "Erro desconhecido";
   // Verifica o tipo de erro e responde com o status adequado
@@ -64,17 +47,4 @@ app.setErrorHandler((error, request, reply) => {
         message: "Internal server error " + messageError,
       });
   }
-});
-
-app.register(serviceRouter);
-
-const start = () => {
-  try {
-    app.listen({ port, host: "0.0.0.0" });
-    console.log(`aplicação rodando na porta ${port}`);
-  } catch (error) {
-    console.log(`erro ao iniciar o servidor ${error}`);
-  }
 };
-
-start();

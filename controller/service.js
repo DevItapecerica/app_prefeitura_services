@@ -24,26 +24,6 @@ const getOne = (id) => {
   }
 };
 
-//recebe o id do usuário
-const getAllUserService = (ids) => {
-  try {
-    const query = (options) => {
-      const where = {};
-
-      where.id = { [Op.in]: options.map((option) => option) }; // Para múltiplos 'id's
-
-      return { where };
-    };
-
-    const queryOptions = query(ids);
-
-    let service = DbService.findAll(queryOptions);
-    return service;
-  } catch (error) {
-    throw error;
-  }
-};
-
 const create = (service) => {
   try {
     let newService = DbService.create(service);
@@ -79,7 +59,6 @@ const update = (id, service) => {
 module.exports = {
   getAll,
   getOne,
-  getAllUserService,
   create,
   update,
   deleteOne,
