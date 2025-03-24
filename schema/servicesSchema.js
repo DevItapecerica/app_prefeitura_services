@@ -240,13 +240,6 @@ const updateServices = {
   type: "object",
   tags: ["Services"],
   security: [{ APIKey: [] }],
-  headers: {
-    type: "object",
-    required: ["x-api-key"],
-    properties: {
-      "x-api-key": { type: "string" },
-    },
-  },
   body: {
     type: "object",
     required: ["service"],
