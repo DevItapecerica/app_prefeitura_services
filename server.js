@@ -16,7 +16,7 @@ app.register(fastifySwagger, swaggerConfig(port));
 app.register(fastifySwaggerUi, swaggerUiConfig);
 
 app.setErrorHandler((error, request, reply) => {
-  const statusCode = error.status || 500;
+  const statusCode = error.status || error.statusCode || 500;
   console.log(error)
   let messageError =
     error.response?.data.message || error.message || "Erro desconhecido";
