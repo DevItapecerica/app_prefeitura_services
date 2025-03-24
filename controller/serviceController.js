@@ -67,8 +67,16 @@ const deleteService = async (request, reply) => {
       throw error;
     }
 
-    await deleteOne(id);
-    return reply.status(200).send("Service deleted successfully");
+    let service = await deleteOne(id);
+
+      if (service > 0) {
+        return reply.status(200).send("Service deleted successfully");
+      } else {
+        error = new Error();
+        error.status = 404;
+        error.message = "Service not deleted";
+      }
+
   } catch (error) {
     throw error;
   }
