@@ -5,9 +5,9 @@ const fastifySwaggerUi = require("@fastify/swagger-ui");
 const serviceRouter = require("./routes/serviceRouter");
 const {swaggerConfig, swaggerUiConfig} = require('./config/swaggerConfig');
 const { corsConfig } = require("./config/corsConfig");
+require('dotenv').config({path: `${__dirname}/config/.env`});
 
-
-const port = process.env.APPLICATION_PORT || 8003;
+const port = process.env.APPLICATION_PORT || 8004;
 const app = fastify();
 
 app.register(fastifyCors, corsConfig);
