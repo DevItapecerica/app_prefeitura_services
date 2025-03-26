@@ -377,4 +377,10 @@ const deleteService = {
   },
 };
 
-module.exports = { getServices, getOneService, postServices, updateServices, deleteService   };
+module.exports = {
+  getServices,
+  getOneService,
+  postServices,
+  updateServices,
+  deleteService,
+};
