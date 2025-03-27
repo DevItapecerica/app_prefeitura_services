@@ -40,15 +40,9 @@ const createService = async (request, reply) => {
 const updateService = async (request, reply) => {
   try {
     const id = request.params.id;
-    const service = await update(id, request.body.service);
-    if (service > 0) {
-      return reply.status(201).send("Service updated successfully");
-    } else {
-      error = new Error();
-      error.status = 404;
-      error.message = "Service not updated";
-      throw error;
-    }
+    await update(id, request.body.service);
+
+    reply.status(204);
   } catch (error) {
     throw error;
   }
@@ -67,14 +61,10 @@ const deleteService = async (request, reply) => {
 
     let service = await deleteOne(id);
 
-      if (service > 0) {
-        return reply.status(200).send("Service deleted successfully");
-      } else {
-        error = new Error();
-        error.status = 404;
-        error.message = "Service not deleted";
-      }
-
+    if (service < 1) {
+      throw { status: 404, message: "Serviço não encontrado" };
+    }
+    reply.status(204);
   } catch (error) {
     throw error;
   }
