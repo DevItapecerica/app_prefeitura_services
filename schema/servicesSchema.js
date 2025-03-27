@@ -1,17 +1,8 @@
-const { response } = require("../../Login_MS/schema/authSchema");
-
 const getServices = {
   description: "Retorna todos os serviços",
   type: "object",
   tags: ["Services"],
   security: [{ APIKey: [] }],
-  headers: {
-    type: "object",
-    required: ["x-api-key"],
-    properties: {
-      "x-api-key": { type: "string" },
-    },
-  },
   response: {
     200: {
       description: "Verificação bem sucedido",
@@ -78,13 +69,6 @@ const getOneService = {
   type: "object",
   tags: ["Services"],
   security: [{ APIKey: [] }],
-  headers: {
-    type: "object",
-    required: ["x-api-key"],
-    properties: {
-      "x-api-key": { type: "string" },
-    },
-  },
   response: {
     200: {
       description: "Verificação bem sucedido",
@@ -152,13 +136,6 @@ const postServices = {
   type: "object",
   tags: ["Services"],
   security: [{ APIKey: [] }],
-  headers: {
-    type: "object",
-    required: ["x-api-key"],
-    properties: {
-      "x-api-key": { type: "string" },
-    },
-  },
   body: {
     type: "object",
     required: ["service"],
@@ -316,13 +293,6 @@ const deleteService = {
   type: "object",
   tags: ["Services"],
   security: [{ APIKey: [] }],
-  headers: {
-    type: "object",
-    required: ["x-api-key"],
-    properties: {
-      "x-api-key": { type: "string" },
-    },
-  },
   response: {
     200: {
       description: "Excluido com sucesso",
