@@ -10,7 +10,7 @@ const {
 const getService = async (request, reply) => {
   try {
     const services = await getAll();
-    return reply.status(201).send({ services });
+    return reply.status(201).send(services );
   } catch (error) {
     throw error;
   }
@@ -21,7 +21,7 @@ const getOneService = async (request, reply) => {
     id = request.params.id;
     const services = await getOne(id);
 
-    return reply.status(201).send({ services });
+    return reply.status(201).send(services );
   } catch (error) {
     throw error;
   }
@@ -31,7 +31,7 @@ const createService = async (request, reply) => {
   try {
     const service = await create(request.body.service);
 
-    return reply.status(201).send({ service });
+    return reply.status(201).send(service );
   } catch (error) {
     throw error;
   }
