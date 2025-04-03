@@ -30,8 +30,7 @@ const getOneService = async (request, reply) => {
 const createService = async (request, reply) => {
   try {
     const service = await create(request.body.service);
-
-    return reply.status(201).send(service );
+    return reply.status(201).send( {service} );
   } catch (error) {
     throw error;
   }

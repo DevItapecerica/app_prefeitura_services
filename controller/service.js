@@ -2,9 +2,9 @@
 const { Op } = require("sequelize");
 const DbService = require("../db/model/serviceModel");
 
-const getAll = () => {
+const getAll = async () => {
   try {
-    let services = DbService.findAll();
+    let services = await DbService.findAll();
 
     return services;
   } catch (error) {
@@ -12,9 +12,9 @@ const getAll = () => {
   }
 };
 
-const getOne = (id) => {
+const getOne = async (id) => {
   try {
-    let services = DbService.findOne({
+    let services = await DbService.findOne({
       where: { id: id },
     });
 
@@ -24,19 +24,19 @@ const getOne = (id) => {
   }
 };
 
-const create = (service) => {
+const create = async (service) => {
   try {
-    let newService = DbService.create(service);
-
+    let newService = await DbService.create(service);
+    console.log(newService)
     return newService;
   } catch (error) {
     throw error;
   }
 };
 
-const deleteOne = (id) => {
+const deleteOne = async (id) => {
   try {
-    let service = DbService.destroy({
+    let service = await DbService.destroy({
       where: { id: id },
     });
     return service;

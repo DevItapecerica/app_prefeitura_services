@@ -1,5 +1,4 @@
 const middlewareError = (error, request, reply) => {
-  console.log(error.status)
   const statusCode = error.status || 500;
   let messageError =
     error.response?.data.message || error.message || "Erro desconhecido";
