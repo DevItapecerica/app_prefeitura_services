@@ -10,7 +10,7 @@ const {
 const getService = async (request, reply) => {
   try {
     const services = await getAll();
-    return reply.status(201).send(services );
+    return reply.status(201).send(services);
   } catch (error) {
     throw error;
   }
