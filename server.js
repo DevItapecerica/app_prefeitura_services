@@ -1,78 +1,47 @@
-const fastify = require("fastify");
-const fastifyCors = require("@fastify/cors");
+require("dotenv").config({ path: `${__dirname}/config/.env` });
+const port = process.env.APPLICATION_PORT || 8004;
+
+// fastify
+const fastify = require("fastify")();
+const cors = require("@fastify/cors");
 const fastifySwagger = require("@fastify/swagger");
 const fastifySwaggerUi = require("@fastify/swagger-ui");
-const serviceRouter = require("./routes/serviceRouter");
-const {swaggerConfig, swaggerUiConfig} = require('./config/swaggerConfig');
+
+// swagger
+const { swaggerConfig, swaggerUiConfig } = require("./config/swaggerConfig");
 const { corsConfig } = require("./config/corsConfig");
-require('dotenv').config({path: `${__dirname}/config/.env`});
 
-const port = process.env.APPLICATION_PORT || 8004;
-const app = fastify();
+// hooks
+const { errorHook } = require("./hooks/errorHook");
 
-app.register(fastifyCors, corsConfig);
+// router
+const serviceRouter = require("./routes/serviceRouter");
 
-app.register(fastifySwagger, swaggerConfig(port));
-app.register(fastifySwaggerUi, swaggerUiConfig);
+// plugins
+fastify.register(cors, corsConfig);
 
-app.setErrorHandler((error, request, reply) => {
-  const statusCode = error.status || error.statusCode || 500;
-  let messageError =
-    error.response?.data.message || error.message || "Erro desconhecido";
-  // Verifica o tipo de erro e responde com o status adequado
-  switch (statusCode) {
-    case 400:
-      reply.status(statusCode).send({
-        statusCode: statusCode,
-        error: "Server Error",
-        message: "Bad Request " + messageError,
-      });
-      break;
-    case 401:
-      reply.status(statusCode).send({
-        statusCode: statusCode,
-        error: "Server Error",
-        message: "Unauthorized " + messageError,
-      });
-      break;
-    case 403:
-      reply.status(statusCode).send({
-        statusCode: statusCode,
-        error: "Server Error",
-        message: "Forbidden " + messageError,
-      });
-      break;
-    case 404:
-      reply.status(statusCode).send({
-        statusCode: statusCode,
-        error: "Server Error",
-        message: "Not found " + messageError,
-      });
-      break;
-    case 500:
-      reply.status(statusCode).send({
-        statusCode: statusCode,
-        error: "Server Error",
-        message: "Internal server error " + messageError,
-      });
-      break;
-    default:
-      reply.status(statusCode).send({
-        statusCode: statusCode,
-        error: "Server Error",
-        message: "Internal server error " + messageError,
-      });
-  }
+fastify.register(fastifySwagger, swaggerConfig(port));
+fastify.register(fastifySwaggerUi, swaggerUiConfig);
+
+// hooks register
+fastify.setErrorHandler((error, request, reply) => {
+  ("----------------------------------------------------------");
+  "Error: ", error;
+  ("----------------------------------------------------------");
+  errorHook(error, reply);
 });
 
-app.register(serviceRouter);
+// routes register
+fastify.register(serviceRouter);
 
-const start = () => {
+// fastify instance
+const start = async () => {
   try {
-    app.listen({ port, host: "0.0.0.0" });
-    console.log(`aplicação rodando na porta ${port}`);
+    await fastify.listen({ port, host: "0.0.0.0" });
+    console.log(`Server is running on port ${port}`);
   } catch (error) {
-    console.log(`erro ao iniciar o servidor ${error}`);
+    console.error("Erro ao iniciar o servidor:", error);
+    process.exit(1);
   }
 };
 
