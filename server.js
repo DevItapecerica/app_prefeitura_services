@@ -1,5 +1,6 @@
-require("dotenv").config({ path: `${__dirname}/config/.env` });
-const port = process.env.APPLICATION_PORT || 8004;
+const { PORT } = require("./src/config/env");
+
+const port = PORT || 8004;
 
 // fastify
 const fastify = require("fastify")();
@@ -8,14 +9,14 @@ const fastifySwagger = require("@fastify/swagger");
 const fastifySwaggerUi = require("@fastify/swagger-ui");
 
 // swagger
-const { swaggerConfig, swaggerUiConfig } = require("./config/swaggerConfig");
-const { corsConfig } = require("./config/corsConfig");
+const { swaggerConfig, swaggerUiConfig } = require("./src/config/swaggerConfig");
+const { corsConfig } = require("./src/config/corsConfig");
 
 // hooks
-const { errorHook } = require("./hooks/errorHook");
+const { errorHook } = require("./src/hooks/errorHook");
 
 // router
-const serviceRouter = require("./routes/serviceRouter");
+const serviceRouter = require("./src/routes/serviceRouter");
 
 // plugins
 fastify.register(cors, corsConfig);
