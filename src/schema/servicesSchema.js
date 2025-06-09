@@ -1,5 +1,15 @@
 const errorSchema = require("./errorSchema");
 
+const serviceProperties = {
+  properties: {
+    id: { type: "integer", example: 1 },
+    name: { type: "string", example: "Serviço 1" },
+    description: { type: "string", example: "Descrição do serviço 1" },
+    tag: { type: "string", example: "tag1" },
+    url: { type: "string", example: "/admin" },
+  },
+};
+
 const getServices = {
   description: "Retorna todos os serviços",
   type: "object",
@@ -21,8 +31,7 @@ const getServices = {
         },
       },
     },
-    ...errorSchema
-
+    ...errorSchema,
   },
 };
 
@@ -35,21 +44,10 @@ const getOneService = {
     200: {
       description: "Verificação bem sucedido",
       type: "object",
-      properties: {
-        service: {
-          type: "object",
-          properties: {
-            id: { type: "integer", example: 1 },
-            name: { type: "string", example: "Serviço 1" },
-            description: { type: "string", example: "Descrição do serviço 1" },
-            url: { type: "string", example: "/admin" },
-          },
-        },
-      },
+      ...serviceProperties
     },
 
-    ...errorSchema
-
+    ...errorSchema,
   },
 };
 
@@ -92,8 +90,7 @@ const postServices = {
         },
       },
     },
-    ...errorSchema
-
+    ...errorSchema,
   },
 };
 
@@ -128,7 +125,7 @@ const updateServices = {
         },
       },
     },
-    ...errorSchema
+    ...errorSchema,
   },
 };
 
@@ -146,7 +143,7 @@ const deleteService = {
       },
     },
 
-    ...errorSchema
+    ...errorSchema,
   },
 };
 

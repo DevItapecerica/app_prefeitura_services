@@ -16,6 +16,11 @@ const Service = db.define("Service", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  tag:{
+    type: Sequelize.STRING(15),
+    allowNull: false,
+    defaultValue: "outros"
+  },
   url: {
     type: Sequelize.STRING,
     allowNull: false,
