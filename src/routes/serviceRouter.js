@@ -1,6 +1,6 @@
-const Services = require("../controller/serviceController");
-const ServiceSchema = require("../schema/servicesSchema");
-const auth = require("../middleware/authKey");
+import Services from "../controller/serviceController.js";
+import ServiceSchema from "../schema/servicesSchema.js";
+import auth from "../middleware/authKey.js";
 
 const router = (fastify, options) => {
   fastify.route({
@@ -44,4 +44,4 @@ const router = (fastify, options) => {
   });
 };
 
-module.exports = router;
+export default router;

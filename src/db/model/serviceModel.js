@@ -1,30 +1,30 @@
-const Sequelize = require("sequelize");
-const db = require("../context");
+import { DataTypes } from "sequelize";
+import db from "../context.js";
 
 const Service = db.define("Service", {
   id: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,
   },
   name: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   description: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: true,
   },
-  tag:{
-    type: Sequelize.STRING(15),
+  tag: {
+    type: DataTypes.STRING(15),
     allowNull: false,
-    defaultValue: "outros"
+    defaultValue: "outros",
   },
   url: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
 });
 
-module.exports = Service;
+export default Service;

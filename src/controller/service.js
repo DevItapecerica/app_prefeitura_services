@@ -1,65 +1,51 @@
-// const { getAll, getOne, create, update, deleteOne } = require("./service");
-const { Op } = require("sequelize");
-const DbService = require("../db/model/serviceModel");
+import { Op } from "sequelize";
+import DbService from "../db/model/serviceModel.js";
 
-const getAll = async () => {
+export const getAll = async () => {
   try {
-    let services = await DbService.findAll();
-
-    return services;
+    return await DbService.findAll();
   } catch (error) {
+    console.error("Erro ao buscar todos os serviços:", error);
     throw error;
   }
 };
 
-const getOne = async (id) => {
+export const getOne = async (id) => {
   try {
-    let services = await DbService.findOne({
-      where: { id: id },
-    });
-
-    return services;
+    return await DbService.findOne({ where: { id } });
   } catch (error) {
+    console.error(`Erro ao buscar serviço com ID ${id}:`, error);
     throw error;
   }
 };
 
-const create = async (service) => {
+export const create = async (service) => {
   try {
-    let newService = await DbService.create(service);
-    console.log(newService)
+    const newService = await DbService.create(service);
+    console.log("Serviço criado:", newService);
     return newService;
   } catch (error) {
+    console.error("Erro ao criar serviço:", error);
     throw error;
   }
 };
 
-const deleteOne = async (id) => {
+export const deleteOne = async (id) => {
   try {
-    let service = await DbService.destroy({
-      where: { id: id },
-    });
-    return service;
+    const deletedCount = await DbService.destroy({ where: { id } });
+    return deletedCount;
   } catch (error) {
+    console.error(`Erro ao deletar serviço com ID ${id}:`, error);
     throw error;
   }
 };
 
-const update = (id, service) => {
+export const update = async (id, service) => {
   try {
-    let serviceUpdate = DbService.update(service, {
-      where: { id: id },
-    });
-    return serviceUpdate;
+    const [updatedCount] = await DbService.update(service, { where: { id } });
+    return updatedCount;
   } catch (error) {
+    console.error(`Erro ao atualizar serviço com ID ${id}:`, error);
     throw error;
   }
-};
-
-module.exports = {
-  getAll,
-  getOne,
-  create,
-  update,
-  deleteOne,
 };

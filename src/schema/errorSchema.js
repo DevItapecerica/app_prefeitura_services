@@ -31,4 +31,4 @@ const errorResponseSchema = {
   },
 };
 
-module.exports = errorResponseSchema
+export default errorResponseSchema;

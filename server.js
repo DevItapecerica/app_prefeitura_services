@@ -1,48 +1,48 @@
-const { PORT } = require("./src/config/env");
-
+import { PORT } from "./src/config/env.js";
 const port = PORT || 8004;
 
 // fastify
-const fastify = require("fastify")();
-const cors = require("@fastify/cors");
-const fastifySwagger = require("@fastify/swagger");
-const fastifySwaggerUi = require("@fastify/swagger-ui");
+import Fastify from "fastify";
+import cors from "@fastify/cors";
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUi from "@fastify/swagger-ui";
 
 // swagger
-const { swaggerConfig, swaggerUiConfig } = require("./src/config/swaggerConfig");
-const { corsConfig } = require("./src/config/corsConfig");
+import { swaggerConfig, swaggerUiConfig } from "./src/config/swaggerConfig.js";
+import { corsConfig } from "./src/config/corsConfig.js";
 
 // hooks
-const { errorHook } = require("./src/hooks/errorHook");
+import { errorHook } from "./src/hooks/errorHook.js";
 
 // router
-const serviceRouter = require("./src/routes/serviceRouter");
+import serviceRouter from "./src/routes/serviceRouter.js";
+
+// instância do fastify
+const fastify = Fastify();
 
 // plugins
-// await fastify.register(loggerPlugin);
-fastify.register(cors, corsConfig);
+await fastify.register(cors, corsConfig);
+await fastify.register(fastifySwagger, swaggerConfig(port));
+await fastify.register(fastifySwaggerUi, swaggerUiConfig);
 
-fastify.register(fastifySwagger, swaggerConfig(port));
-fastify.register(fastifySwaggerUi, swaggerUiConfig);
-
-// hooks register
+// hooks
 fastify.setErrorHandler((error, request, reply) => {
-  ("----------------------------------------------------------");
-  "Error: ", error;
-  ("----------------------------------------------------------");
+  console.error("----------------------------------------------------------");
+  console.error("Error:", error);
+  console.error("----------------------------------------------------------");
   errorHook(error, reply);
 });
 
-// routes register
-fastify.register(serviceRouter);
+// rotas
+await fastify.register(serviceRouter);
 
-// fastify instance
+// inicialização
 const start = async () => {
   try {
     await fastify.listen({ port, host: "0.0.0.0" });
-    console.log(`Server is running on port ${port}`);
+    console.log(`🚀 Server is running on port ${port}`);
   } catch (error) {
-    console.error("Erro ao iniciar o servidor:", error);
+    console.error("❌ Erro ao iniciar o servidor:", error);
     process.exit(1);
   }
 };
