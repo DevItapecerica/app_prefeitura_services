@@ -13,7 +13,12 @@ export default class Services {
       const services = await getAll();
       return reply.status(200).send({ services });
     } catch (error) {
-      throw error;
+      throw {
+        code: error.code,
+        message: error.message,
+        ok: false,
+        api: "Services",
+      };
     }
   };
 
@@ -23,7 +28,12 @@ export default class Services {
       const service = await getOne(id);
       return reply.status(200).send({ service });
     } catch (error) {
-      throw error;
+      throw {
+        code: error.code,
+        message: error.message,
+        ok: false,
+        api: "Services",
+      };
     }
   };
 
@@ -32,7 +42,12 @@ export default class Services {
       const service = await create(request.body.service);
       return reply.status(201).send({ service });
     } catch (error) {
-      throw error;
+      throw {
+        code: error.code,
+        message: error.message,
+        ok: false,
+        api: "Services",
+      };
     }
   };
 
@@ -42,7 +57,12 @@ export default class Services {
       await update(id, request.body.service);
       reply.status(204).send();
     } catch (error) {
-      throw error;
+      throw {
+        code: error.code,
+        message: error.message,
+        ok: false,
+        api: "Services",
+      };
     }
   };
 
@@ -51,20 +71,33 @@ export default class Services {
       const id = parseInt(request.params.id);
 
       if (id <= 3) {
-        const error = new Error("Não é possível deletar esse serviço");
-        error.status = 403;
-        throw error;
+        throw {
+          code: 403,
+          ok: false,
+          api: "Services",
+          message: "Não é possível deletar esse serviço",
+        };
       }
 
       const deletedCount = await deleteOne(id);
 
       if (deletedCount < 1) {
-        throw { status: 404, message: "Serviço não encontrado" };
+        throw {
+          code: 404,
+          ok: false,
+          api: "Services",
+          message: "Serviço não encontrado",
+        };
       }
 
       reply.status(204).send();
     } catch (error) {
-      throw error;
+      throw {
+        code: error.code,
+        message: error.message,
+        ok: false,
+        api: "Services",
+      };
     }
   };
 }
