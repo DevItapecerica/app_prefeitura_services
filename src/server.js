@@ -61,6 +61,7 @@ fastify.setErrorHandler((error, request, reply) => {
       api: api || "Services",
     };
   } else {
+    if (typeof code === "string") code = 500;
     errorResponse = {
       ok: ok || false,
       validation: false,
