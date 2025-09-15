@@ -1,4 +1,4 @@
-const swaggerConfig = (port) => {
+export const swaggerConfig = (port) => {
   return {
     openapi: {
       openapi: "3.0.0",
@@ -20,20 +20,18 @@ const swaggerConfig = (port) => {
       servers: [
         {
           url: `http://192.168.16.13:${port}`,
-          description: "Development server",
+          description: "Servidor de desenvolvimento",
         },
         {
           url: `http://192.168.16.80:${port}`,
-          description: "prodution server",
+          description: "Servidor de produção",
         },
       ],
     },
   };
 };
 
-const swaggerUiConfig = {
+export const swaggerUiConfig = {
   routePrefix: "/docs",
   exposeRoute: true,
 };
-
-module.exports = { swaggerConfig, swaggerUiConfig };

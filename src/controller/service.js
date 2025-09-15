@@ -1,65 +1,26 @@
-// const { getAll, getOne, create, update, deleteOne } = require("./service");
-const { Op } = require("sequelize");
-const DbService = require("../db/model/serviceModel");
+import { Op } from "sequelize";
+import DbService from "../db/model/serviceModel.js";
 
-const getAll = async () => {
-  try {
-    let services = await DbService.findAll();
-
-    return services;
-  } catch (error) {
-    throw error;
-  }
+export const getAll = async () => {
+  return await DbService.findAll();
 };
 
-const getOne = async (id) => {
-  try {
-    let services = await DbService.findOne({
-      where: { id: id },
-    });
-
-    return services;
-  } catch (error) {
-    throw error;
-  }
+export const getOne = async (id) => {
+  return await DbService.findOne({ where: { id } });
 };
 
-const create = async (service) => {
-  try {
-    let newService = await DbService.create(service);
-    console.log(newService)
-    return newService;
-  } catch (error) {
-    throw error;
-  }
+export const create = async (service) => {
+  const newService = await DbService.create(service);
+  console.log("Serviço criado:", newService);
+  return newService;
 };
 
-const deleteOne = async (id) => {
-  try {
-    let service = await DbService.destroy({
-      where: { id: id },
-    });
-    return service;
-  } catch (error) {
-    throw error;
-  }
+export const deleteOne = async (id) => {
+  const deletedCount = await DbService.destroy({ where: { id } });
+  return deletedCount;
 };
 
-const update = (id, service) => {
-  try {
-    let serviceUpdate = DbService.update(service, {
-      where: { id: id },
-    });
-    return serviceUpdate;
-  } catch (error) {
-    throw error;
-  }
-};
-
-module.exports = {
-  getAll,
-  getOne,
-  create,
-  update,
-  deleteOne,
+export const update = async (id, service) => {
+  const [updatedCount] = await DbService.update(service, { where: { id } });
+  return updatedCount;
 };
