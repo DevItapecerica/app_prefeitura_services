@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../context.js";
 
-const Service = db.define("Service", {
+const Service = db.define("service", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
