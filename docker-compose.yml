@@ -8,7 +8,12 @@ services:
       NODE_ENV: ${NODE_ENV}
       APPLICATION_PORT: ${APPLICATION_PORT}
       API_KEY: ${API_KEY}
-      DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_KEY: ${DATABASE_KEY}
-      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_URL: ${DATABASE_URL}
+
+    ports:
+      - 3000
+    networks:
+      - dokploy-network
+networks:
+  dokploy-network:
+    external: true

@@ -1,18 +1,7 @@
 import { Sequelize } from "sequelize";
-import {
-  DATABASE_USER,
-  DATABASE_KEY,
-  DATABASE_HOST,
-  DATABASE_NAME,
-} from "../config/env.js";
+import { DATABASE_URL } from "../config/env.js";
 
-const sequelize = new Sequelize(DATABASE_NAME, DATABASE_USER, DATABASE_KEY, {
-  host: DATABASE_HOST,
-  dialect: "mariadb",
-  define: {
-    timestamps: false,
-  },
-});
+const sequelize = new Sequelize(DATABASE_URL);
 
 sequelize
   .authenticate()
