@@ -20,3 +20,5 @@ export const DATABASE_URL = must("DATABASE_URL");
 
 export const API_KEY = must("API_KEY");
 export const PORT = must("APPLICATION_PORT");
+
+export const NODE_ENV = must("NODE_ENV");

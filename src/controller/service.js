@@ -11,7 +11,6 @@ export const getOne = async (id) => {
 
 export const create = async (service) => {
   const newService = await DbService.create(service);
-  console.log("Serviço criado:", newService);
   return newService;
 };
 

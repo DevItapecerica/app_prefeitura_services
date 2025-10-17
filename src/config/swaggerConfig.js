@@ -19,11 +19,11 @@ export const swaggerConfig = (port) => {
       },
       servers: [
         {
-          url: `http://192.168.16.13:${port}`,
+          url: `http://189.20.193.253:${port}`,
           description: "Servidor de desenvolvimento",
         },
         {
-          url: `http://192.168.16.80:${port}`,
+          url: `http://189.20.193.252:${port}`,
           description: "Servidor de produção",
         },
       ],
