@@ -1,25 +1,25 @@
 import { Op } from "sequelize";
-import DbService from "../db/model/serviceModel.js";
+import db from "../db/models/index.js";
 
 export const getAll = async () => {
-  return await DbService.findAll();
+  return await db.Services.findAll();
 };
 
 export const getOne = async (id) => {
-  return await DbService.findOne({ where: { id } });
+  return await db.Services.findOne({ where: { id } });
 };
 
 export const create = async (service) => {
-  const newService = await DbService.create(service);
+  const newService = await db.Services.create(service);
   return newService;
 };
 
 export const deleteOne = async (id) => {
-  const deletedCount = await DbService.destroy({ where: { id } });
+  const deletedCount = await db.Services.destroy({ where: { id } });
   return deletedCount;
 };
 
 export const update = async (id, service) => {
-  const [updatedCount] = await DbService.update(service, { where: { id } });
+  const [updatedCount] = await db.Services.update(service, { where: { id } });
   return updatedCount;
 };

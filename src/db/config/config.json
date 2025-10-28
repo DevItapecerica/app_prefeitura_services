@@ -1,0 +1,13 @@
+{
+  "development": {
+    "username": "root",
+    "password": "kadoia",
+    "database": "app_prefeitura",
+    "host": "localhost",
+    "dialect": "mariadb"
+  },
+  "production": {
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "mariadb"
+  }
+}
