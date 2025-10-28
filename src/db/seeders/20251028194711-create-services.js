@@ -1,25 +1,77 @@
-'use strict';
+"use strict";
 
 /** @type {import('sequelize-cli').Migration} */
-module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+export default {
+  async up(queryInterface, Sequelize) {
+    const registros = [
+      {
+        id: 1,
+        name: "User",
+        description: "Documentação da aplicação",
+        url: "/services/1/admin",
+        tag: "admin",
+      },
+      {
+        id: 2,
+        name: "Setor",
+        description: "Gerenciamento de setores",
+        url: "/services/2/admin?tab=1",
+        tag: "admin",
+      },
+      {
+        id: 3,
+        name: "Serviços",
+        description: "Gerenciamento de serviços",
+        url: "/services/3/admin?tab=2",
+        tag: "admin",
+      },
+      {
+        id: 4,
+        name: "Roles",
+        description: "Gerenciamento de permissões",
+        url: "/services/4/admin?tab=3",
+        tag: "admin",
+      },
+      {
+        id: 6,
+        name: "Frente de Trabalho",
+        description: "ft-app",
+        url: "/services/6/ft-app",
+        tag: "FT-App",
+      },
+      {
+        id: 7,
+        name: "IPTU - Certidao",
+        description: "Disponibilização de Certidão para Munícipe",
+        url: "/services/7/iptu/certidao",
+        tag: "outros",
+      },
+    ];
+
+    for (const registro of registros) {
+      const exists = await queryInterface.rawSelect(
+        "servicos",
+        {
+          where: { id: registro.id },
+        },
+        ["id"]
+      );
+
+      if (!exists) {
+        await queryInterface.bulkInsert("servicos", [
+          {
+            ...registro,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+        ]);
+      }
+    }
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+  async down(queryInterface) {
+    await queryInterface.bulkDelete("servicos", {
+      id: [1, 2, 3, 4, 6, 7],
+    });
+  },
 };
