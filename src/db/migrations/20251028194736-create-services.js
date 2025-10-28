@@ -27,18 +27,6 @@ export default {
         type: Sequelize.DataTypes.STRING,
         allowNull: false,
       },
-      createdAt: {
-        type: Sequelize.DataTypes.DATE,
-        allowNull: false,
-      },
-      updatedAt: {
-        type: Sequelize.DataTypes.DATE,
-        allowNull: false,
-      },
-      deletedAt: {
-        type: Sequelize.DataTypes.DATE,
-        allowNull: true,
-      },
     });
   },
 
