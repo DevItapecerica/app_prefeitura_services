@@ -50,7 +50,7 @@ export default {
 
     for (const registro of registros) {
       const exists = await queryInterface.rawSelect(
-        "servicos",
+        "services",
         {
           where: { id: registro.id },
         },
@@ -58,7 +58,7 @@ export default {
       );
 
       if (!exists) {
-        await queryInterface.bulkInsert("servicos", [
+        await queryInterface.bulkInsert("services", [
           {
             ...registro,
             createdAt: new Date(),
@@ -70,7 +70,7 @@ export default {
   },
 
   async down(queryInterface) {
-    await queryInterface.bulkDelete("servicos", {
+    await queryInterface.bulkDelete("services", {
       id: [1, 2, 3, 4, 6, 7],
     });
   },
