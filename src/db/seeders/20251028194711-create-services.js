@@ -10,6 +10,8 @@ export default {
         description: "Documentação da aplicação",
         url: "/services/1/admin",
         tag: "admin",
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 2,
@@ -17,6 +19,8 @@ export default {
         description: "Gerenciamento de setores",
         url: "/services/2/admin?tab=1",
         tag: "admin",
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 3,
@@ -24,6 +28,8 @@ export default {
         description: "Gerenciamento de serviços",
         url: "/services/3/admin?tab=2",
         tag: "admin",
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 4,
@@ -31,6 +37,18 @@ export default {
         description: "Gerenciamento de permissões",
         url: "/services/4/admin?tab=3",
         tag: "admin",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 5,
+        name: "DemandasTi",
+        description: "Gerenciamento de permissões",
+        url: "/services/4/admin?tab=3",
+        tag: "admin",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        deletedAt: new Date(),
       },
       {
         id: 6,
@@ -38,6 +56,8 @@ export default {
         description: "ft-app",
         url: "/services/6/ft-app",
         tag: "FT-App",
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 7,
@@ -45,6 +65,8 @@ export default {
         description: "Disponibilização de Certidão para Munícipe",
         url: "/services/7/iptu/certidao",
         tag: "outros",
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ];
 
