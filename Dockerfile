@@ -10,4 +10,4 @@ EXPOSE 3000
 RUN chown -R node /app
 
 USER node
-CMD sh -c "npx sequelize db:migrate --env $NODE_ENV && npm start"
+CMD sh -c "npm start"
