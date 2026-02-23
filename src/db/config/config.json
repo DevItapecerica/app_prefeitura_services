@@ -2,11 +2,15 @@
   "development": {
     "use_env_variable": "DATABASE_URL",
     "dialect": "mariadb",
-    "connectTimeout": 10000
+    "dialectOptions": {
+      "connectTimeout": 10000
+    }
   },
   "production": {
     "use_env_variable": "DATABASE_URL",
     "dialect": "mariadb",
-    "connectTimeout": 10000
+    "dialectOptions": {
+      "connectTimeout": 10000
+    }
   }
 }
